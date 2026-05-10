@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Creative Agency Rise at Seven" },
+      { name: "description", content: "Elevate Creative builds premium, modern digital agency websites with a bold, editorial aesthetic." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Creative Agency Rise at Seven" },
+      { property: "og:description", content: "Elevate Creative builds premium, modern digital agency websites with a bold, editorial aesthetic." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Creative Agency Rise at Seven" },
+      { name: "twitter:description", content: "Elevate Creative builds premium, modern digital agency websites with a bold, editorial aesthetic." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/bddf5ab7-b1df-45a9-801b-d34f87084e65/id-preview-345c0599--46f1fdcc-f3f5-4453-8e05-a63691cc7863.lovable.app-1778442130696.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/bddf5ab7-b1df-45a9-801b-d34f87084e65/id-preview-345c0599--46f1fdcc-f3f5-4453-8e05-a63691cc7863.lovable.app-1778442130696.png" },
     ],
     links: [
       {
