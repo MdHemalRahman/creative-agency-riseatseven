@@ -55,7 +55,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col md:flex-row justify-between gap-4 text-xs text-white/40 border-t border-white/10 pt-8">
-          <span>© 2025 Rise at Seven. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Rise at Seven. All rights reserved.</span>
           <div className="flex gap-6">
             <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a>
           </div>
