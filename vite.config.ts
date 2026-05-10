@@ -15,4 +15,9 @@ export default defineConfig({
       preset: "static",
     },
   },
+  vite: {
+    build: {
+      outDir: "dist",
+    },
+  },
 });
