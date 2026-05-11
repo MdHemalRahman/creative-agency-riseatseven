@@ -31,10 +31,9 @@ function Index() {
         <Navbar />
         <Hero />
         <FeaturedWork />
+        <Legacy />
         <Marquee />
         <Services />
-        <Legacy />
-        <News />
         <News />
         <Footer />
       </main>
