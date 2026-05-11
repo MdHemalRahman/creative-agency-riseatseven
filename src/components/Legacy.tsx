@@ -57,8 +57,8 @@ function StackCard({
 
   return (
     <div
-      className="sticky flex items-center justify-center px-6"
-      style={{ top: `${topOffset}px`, height: "calc(100vh - 80px)" }}
+      className="sticky flex items-center justify-center px-6 py-10"
+      style={{ top: `${topOffset}px`, minHeight: "calc(100vh - 80px)" }}
     >
       <motion.div
         style={{
@@ -92,17 +92,20 @@ export function Legacy() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end end"],
+    offset: ["start 80%", "end end"],
   });
 
   return (
-    <section ref={ref} className="bg-bone text-ink relative">
-      <div className="sticky top-0 pt-10 md:pt-14 pb-3 text-center z-20 pointer-events-none bg-bone">
-        <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-ink/70">
+    <section ref={ref} id="legacy" className="relative bg-bone text-ink grain py-20 md:py-28">
+      <div className="px-6 md:px-10 max-w-[1600px] mx-auto mb-10 md:mb-16">
+        <span className="block text-xs uppercase tracking-[0.35em] text-ink/60 mb-5">
           — Legacy In The Making
         </span>
+        <h2 className="font-display font-bold text-[18vw] md:text-[11vw] uppercase tracking-tighter leading-[0.82] max-w-6xl">
+          Legacy In<br />The Making
+        </h2>
       </div>
-      <div className="relative">
+      <div className="relative min-h-[360vh]">
         {cards.map((c, i) => (
           <StackCard
             key={c.title}
