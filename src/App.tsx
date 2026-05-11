@@ -3,6 +3,7 @@ import { Cursor } from '@/components/Cursor';
 import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
 import { FeaturedWork } from '@/components/FeaturedWork';
+import { Legacy } from '@/components/Legacy';
 import { Marquee } from '@/components/Marquee';
 import { Services } from '@/components/Services';
 import { News } from '@/components/News';
@@ -17,6 +18,7 @@ function App() {
         <Navbar />
         <Hero />
         <FeaturedWork />
+        <Legacy />
         <Marquee />
         <Services />
         <News />
