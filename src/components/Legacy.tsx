@@ -57,8 +57,8 @@ function StackCard({
 
   return (
     <div
-      className="sticky flex items-center justify-center px-6"
-      style={{ top: `${topOffset}px`, height: "calc(100vh - 80px)" }}
+      className="sticky flex items-center justify-center px-6 py-10"
+      style={{ top: `${topOffset}px`, minHeight: "calc(100vh - 80px)" }}
     >
       <motion.div
         style={{
