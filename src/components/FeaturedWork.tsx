@@ -1,67 +1,82 @@
-import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 
-const projects = ["SIXT", "Dojo", "B2B Magnet"];
+const projects = [
+  { name: "SIXT", years: "2023–2025", img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=80" },
+  { name: "Dojo — B2B", years: "2021–2025", img: "https://images.unsplash.com/photo-1556742400-b5b7c5121f5b?w=1400&q=80" },
+  { name: "Magnet Trade — B2B", years: "2023–2024", img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1400&q=80" },
+  { name: "Leading E Sim", years: "2023–2025", img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1400&q=80" },
+  { name: "Parkdean Resorts", years: "2018–2022", img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1400&q=80" },
+  { name: "Pooky", years: "2020", img: "https://images.unsplash.com/photo-1540932239986-30128078f3c5?w=1400&q=80" },
+  { name: "Revolution Beauty", years: "2022–2025", img: "https://images.unsplash.com/photo-1522335789203-aaa5e8c6c8b1?w=1400&q=80" },
+  { name: "Lloyds Pharmacy", years: "2022–23", img: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=1400&q=80" },
+  { name: "Pretty Little Thing", years: "2019–2021", img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&q=80" },
+];
 
 export function FeaturedWork() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    return scrollYProgress.on("change", (v) => {
+      const idx = Math.min(projects.length - 1, Math.floor(v * projects.length));
+      setActive(idx);
+    });
+  }, [scrollYProgress]);
+
   return (
-    <section className="bg-ink text-white py-24 md:py-40 px-6 md:px-10 grain">
-      <div className="max-w-[1600px] mx-auto">
-        <div className="flex items-center justify-between mb-16 md:mb-24">
+    <section ref={ref} className="bg-ink text-white grain relative" style={{ height: `${projects.length * 60}vh` }}>
+      <div className="sticky top-0 h-screen flex flex-col px-6 md:px-10 py-16 md:py-20 overflow-hidden">
+        <div className="flex items-center justify-between mb-10 md:mb-16 max-w-[1600px] mx-auto w-full">
           <span className="text-xs uppercase tracking-[0.3em] text-white/50">— Featured Work</span>
-          <a href="#" className="text-sm underline underline-offset-4">All projects</a>
+          <a href="#" className="text-sm underline underline-offset-4" data-cursor>All projects</a>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-          <div>
+        <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center max-w-[1600px] mx-auto w-full flex-1">
+          {/* Project list */}
+          <ul className="font-display font-bold tracking-tighter leading-[0.95] text-[8vw] md:text-[5.2vw]">
             {projects.map((p, i) => (
-              <motion.div
-                key={p}
-                initial={{ opacity: 0, x: -60 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ delay: i * 0.1, duration: 0.9, ease: [0.2, 0.8, 0.2, 1] }}
-                className="font-display font-bold text-[18vw] md:text-[10vw] leading-[0.85] tracking-tighter -mb-4 md:-mb-6 hover:text-[var(--mint)] transition-colors duration-500 cursor-pointer"
+              <li
+                key={p.name}
+                onMouseEnter={() => setActive(i)}
+                className="cursor-pointer transition-all duration-500"
                 data-cursor
+                style={{
+                  color: i === active ? "#fff" : "rgba(255,255,255,0.18)",
+                  transform: i === active ? "translateX(8px)" : "translateX(0)",
+                }}
               >
-                {p}
-              </motion.div>
+                {p.name}
+                <sup className="text-xs md:text-sm font-sans tracking-normal align-super opacity-70 ml-2">
+                  {p.years}
+                </sup>
+              </li>
             ))}
-          </div>
+          </ul>
 
-          <motion.div
-            initial={{ opacity: 0, y: 80 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.2, 0.8, 0.2, 1] }}
-            whileHover={{ y: -8 }}
-            className="relative bg-[var(--peach)] rounded-[40px] aspect-[4/5] p-8 md:p-12 overflow-hidden text-ink group"
-            data-cursor
-          >
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-xs uppercase tracking-widest opacity-60">Case Study · 2025</p>
-                <h3 className="font-display font-bold text-5xl md:text-7xl mt-4 leading-none">SIXT</h3>
-              </div>
-              <motion.div
-                whileHover={{ rotate: 45 }}
-                className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[var(--mint)] flex items-center justify-center shrink-0"
-              >
-                <ArrowUpRight className="w-6 h-6" />
-              </motion.div>
+          {/* Sticky image */}
+          <div className="relative aspect-[4/5] md:aspect-[5/6] rounded-[32px] overflow-hidden bg-white/5 hidden md:block">
+            {projects.map((p, i) => (
+              <motion.img
+                key={p.name}
+                src={p.img}
+                alt={p.name}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover"
+                initial={false}
+                animate={{
+                  opacity: i === active ? 1 : 0,
+                  scale: i === active ? 1 : 1.08,
+                }}
+                transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
+              />
+            ))}
+            <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between text-sm text-white/90">
+              <span className="uppercase tracking-widest">{projects[active].name}</span>
+              <span className="opacity-70">{String(active + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span>
             </div>
-            <div className="absolute bottom-8 md:bottom-12 left-8 md:left-12 right-8 md:right-12">
-              <p className="text-base md:text-xl font-medium leading-snug">
-                Driving 312% organic growth for the global mobility leader through category-defining content.
-              </p>
-              <div className="flex gap-3 mt-6 flex-wrap">
-                {["SEO", "Digital PR", "Strategy"].map((t) => (
-                  <span key={t} className="text-xs px-3 py-1.5 rounded-full border border-ink/30">{t}</span>
-                ))}
-              </div>
-            </div>
-            <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/30 blur-3xl group-hover:scale-125 transition-transform duration-700" />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
