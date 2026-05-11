@@ -33,6 +33,8 @@ function Index() {
         <FeaturedWork />
         <Marquee />
         <Services />
+        <Legacy />
+        <News />
         <News />
         <Footer />
       </main>
